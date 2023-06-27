@@ -1,0 +1,5 @@
+package DoAnMVC.Dao;
+
+public class AdminDao {
+
+}

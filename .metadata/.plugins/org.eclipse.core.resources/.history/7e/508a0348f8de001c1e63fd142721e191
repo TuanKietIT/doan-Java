@@ -1,0 +1,85 @@
+package DoAnMVC.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import DoAnMVC.Dao.HomeDao;
+
+@Controller
+public class HomeController {
+	@Autowired
+	HomeDao homeDao;
+	
+	@RequestMapping(value = { "/" , "/trang-chu" })
+	public ModelAndView Index() {
+		ModelAndView mv = new ModelAndView("user/index");
+		mv.addObject("sanpham", homeDao.getData());
+		mv.addObject("theloai",homeDao.getDataLoai());
+		return mv;
+	}
+	@RequestMapping(value = {"/san-pham/{id}"})
+	public ModelAndView product(@PathVariable String id) {
+		ModelAndView mv = new ModelAndView("user/product");
+		mv.addObject("id_loai",id);
+		mv.addObject("sanpham",homeDao.getData());
+		return mv;
+	}
+	@RequestMapping(value = "/san-pham")
+	public ModelAndView product() {
+		ModelAndView mv = new ModelAndView("user/product");
+		mv.addObject("sanpham",homeDao.getData());
+		mv.addObject("theloai",homeDao.getDataLoai());
+		return mv;
+	}
+	
+	@RequestMapping(value = "/tin-tuc")
+	public ModelAndView Tintuc() {
+		ModelAndView mv = new ModelAndView("user/tintuc");
+		mv.addObject("tintuc",homeDao.getDataTinTuc());
+		mv.addObject("theloai",homeDao.getDataLoai());
+		return mv;
+	}
+	@RequestMapping(value = "/chi-tiet/{id}")
+	public ModelAndView Chitiet(@PathVariable int id) {
+		ModelAndView mv = new ModelAndView("user/chitiet");
+		mv.addObject("sanpham", homeDao.getCTSanPham(id));
+		mv.addObject("theloai",homeDao.getDataLoai());
+		return mv;
+	}
+	@RequestMapping(value = "/Loai-San-Pham/{id}")
+	public ModelAndView LoaiSanPham(@PathVariable int id) {
+		ModelAndView mv = new ModelAndView("user/LoaiSanPham");
+		mv.addObject("sanpham", homeDao.getSanPhamLoai(id));
+		mv.addObject("theloai",homeDao.getDataLoai());
+		return mv;
+	}
+	
+	@RequestMapping(value = "/gioi-thieu")
+	public ModelAndView GioiThieu() {
+		ModelAndView mv = new ModelAndView("user/gioithieu");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/lien-he")
+	public ModelAndView LienHe() {
+		ModelAndView mv = new ModelAndView("user/LienHe");
+		return mv;
+	}
+
+	
+	
+	@RequestMapping(value = "/admin")
+	public ModelAndView Admin() {
+		ModelAndView mv = new ModelAndView("admin/index");
+		return mv;
+	}
+	@RequestMapping(value = "/giao-dien")
+	public ModelAndView GiaoDien() {
+		ModelAndView mv = new ModelAndView("admin/giaodien");
+		return mv;
+	}
+
+}

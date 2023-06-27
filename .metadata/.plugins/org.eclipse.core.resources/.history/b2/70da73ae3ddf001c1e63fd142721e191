@@ -1,0 +1,50 @@
+package DoAnMVC.Dao;
+
+
+
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import DoAnMVC.Entity.Admin;
+import DoAnMVC.Entity.MapperAdmin;
+import DoAnMVC.Entity.SanPham;
+
+
+
+@Repository
+public class AdminDao {
+
+	@Autowired
+	public JdbcTemplate  _jdbcTemplate;
+	
+	public Admin GetAdmin(Admin admin){
+        String sql ="SELECT * FROM admin WHERE taikhoan = '"+admin.getTaikhoan()+"'"; 
+        Admin result = _jdbcTemplate.queryForObject(sql, new MapperAdmin());
+		return result;
+
+	}
+	
+	public Admin CheckAdmin(Admin admin) {
+		String pass = admin.getMatkhau();
+		admin = GetAdmin(admin);
+		if(admin != null) {
+			if(BCrypt.checkpw(pass,admin.getMatkhau())) {
+				return admin;
+			}
+			else {
+				return null;
+			}
+		}
+		return null;
+	}
+	
+	public int AddSanPham(SanPham sanpham) {
+		String sql =("INSERT INTO users (id_loai,tensanpham,giaban,img,tieude,mota,ngaytao,ngaycapnhat)VALUES('"1"','"+sanpham.getTensanpham()+"','"+sanpham.getGiaban()+"','"+sanpham.getImg()+"','"+sanpham.getTieude()+"','"+sanpham.getMota()+"','"+sanpham.getNgaytao()+"','"+sanpham.getNgaycapnhat()+"');");
+		int insert = _jdbcTemplate.update(sql.toString());
+		return insert;
+	}
+	
+	
+}

@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <title>Home| Admin</title>
+<body  >
+<div  class="log-w3">
+  <div style=" background-color: Gray" class="w3layouts-main">
+       <c:if test ="${ empty loginInFo }" >
+		 <h2 style="color:Orange">Đăng nhập Admin</h2>
+			<form action="#" method="post">
+				<input type="email" class="ggg" name="Email" placeholder="E-MAIL" required="">
+				<input type="password" class="ggg" name="Password" placeholder="PASSWORD" required="">
+				<span><input type="checkbox" /> Ghi nhớ</span>
+				<h6 style="color:orange"><a href="#">Quên mật khẩu?</a></h6>
+					<div class="clearfix"></div>
+					<input type="submit" value="Sign In" name="login">
+			</form>
+		</c:if>
+     </div>
+</div>
+ 
+</body>
